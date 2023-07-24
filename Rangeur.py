@@ -9,12 +9,30 @@ def copier_coller_media(source, destination):
             # Obtenir le chemin complet du fichier
             filepath = os.path.join(root, filename)
             
-            # Obtenir la date de création du fichier
-            date_creation = datetime.datetime.fromtimestamp(os.path.getctime(filepath))
+            # Obtenir la date de modification du fichier
+            date_modification = datetime.datetime.fromtimestamp(os.path.getmtime(filepath))
             
-            # Définir les répertoires de destination
-            annee = str(date_creation.year)
-            mois = date_creation.strftime('%B')
+            # Définir les répertoires de destination en utilisant le format français
+            annee = str(date_modification.year)
+            mois = date_modification.strftime('%B').capitalize()
+            
+            # Convertir les noms des mois en français
+            mois_fr = {
+                'January': 'Janvier',
+                'February': 'Février',
+                'March': 'Mars',
+                'April': 'Avril',
+                'May': 'Mai',
+                'June': 'Juin',
+                'July': 'Juillet',
+                'August': 'Août',
+                'September': 'Septembre',
+                'October': 'Octobre',
+                'November': 'Novembre',
+                'December': 'Décembre'
+            }
+            mois = mois_fr.get(mois, mois)
+            
             destination_annee = os.path.join(destination, annee)
             destination_mois = os.path.join(destination_annee, mois)
             destination_doublon = os.path.join(destination, "doublon")
