@@ -7,6 +7,7 @@ def copier_coller_media(source, destination):
     destination_doublon = os.path.join(destination, "doublon")
     if not os.path.exists(destination_doublon):
         os.makedirs(destination_doublon)
+    print("Répertoire des doublons créé : ", destination_doublon)
             
     # Parcours de tous les fichiers et dossiers dans le répertoire source
     for root, dirs, files in os.walk(source):
@@ -46,10 +47,12 @@ def copier_coller_media(source, destination):
                 # Vérifier si le répertoire de destination pour l'année existe, sinon le créer
                 if not os.path.exists(destination_annee):
                     os.makedirs(destination_annee)
+                    print("Répertoire de destination pour l'année créé : ", destination_annee)
                 
                 # Vérifier si le répertoire de destination pour le mois existe, sinon le créer
                 if not os.path.exists(destination_mois):
                     os.makedirs(destination_mois)
+                    print("Répertoire de destination pour le mois créé : ", destination_mois)
                 
                 # Définir le chemin de destination
                 destination_filepath = os.path.join(destination_mois, filename)
@@ -58,9 +61,11 @@ def copier_coller_media(source, destination):
                 if os.path.exists(destination_filepath):
                     # Déplacer le fichier dans le répertoire des doublons
                     shutil.move(filepath, os.path.join(destination_doublon, filename))
+                    print("Fichier déplacé vers le répertoire des doublons :", os.path.join(destination_doublon, filename))
                 else:
                     # Déplacer le fichier dans le répertoire de destination
                     shutil.move(filepath, destination_filepath)
+                    print("Fichier déplacé :", destination_filepath)
 
 # Exemple d'utilisation
 source = "Source_photo"
