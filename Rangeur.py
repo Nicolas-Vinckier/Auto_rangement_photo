@@ -4,11 +4,21 @@ import datetime
 
 
 def copier_coller_media(source, destination):
+    # Vérifier si le répertoire source existe, sinon le créer
+    if not os.path.exists(source):
+        os.makedirs(source)
+        print("Répertoire source créé :", source)
+
+    # Vérifier si le répertoire de destination existe, sinon le créer
+    if not os.path.exists(destination):
+        os.makedirs(destination)
+        print("Répertoire de destination créé :", destination)
+
     # Vérifier si le répertoire de destination pour les doublons existe, sinon le créer
     destination_doublon = os.path.join(destination, "doublon")
     if not os.path.exists(destination_doublon):
         os.makedirs(destination_doublon)
-    print("Répertoire des doublons créé : ", destination_doublon)
+    print("Répertoire des doublons créé :", destination_doublon)
 
     # Parcours de tous les fichiers et dossiers dans le répertoire source
     for root, dirs, files in os.walk(source):
