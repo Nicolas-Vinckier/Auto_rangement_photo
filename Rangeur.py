@@ -3,6 +3,11 @@ import shutil
 import datetime
 
 def copier_coller_media(source, destination):
+    # Vérifier si le répertoire de destination pour les doublons existe, sinon le créer
+    destination_doublon = os.path.join(destination, "doublon")
+    if not os.path.exists(destination_doublon):
+        os.makedirs(destination_doublon)
+            
     # Parcours de tous les fichiers et dossiers dans le répertoire source
     for root, dirs, files in os.walk(source):
         for filename in files:
@@ -35,7 +40,6 @@ def copier_coller_media(source, destination):
             
             destination_annee = os.path.join(destination, annee)
             destination_mois = os.path.join(destination_annee, mois)
-            destination_doublon = os.path.join(destination, "doublon")
             
             # Vérifier si le fichier est une photo ou une vidéo
             if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp', '.mp4', '.avi', '.mov')):
@@ -55,8 +59,8 @@ def copier_coller_media(source, destination):
                     # Déplacer le fichier dans le répertoire des doublons
                     shutil.move(filepath, os.path.join(destination_doublon, filename))
                 else:
-                    # Copier le fichier dans le répertoire de destination
-                    shutil.copy2(filepath, destination_filepath)
+                    # Déplacer le fichier dans le répertoire de destination
+                    shutil.move(filepath, destination_filepath)
 
 # Exemple d'utilisation
 source = "Source_photo"
