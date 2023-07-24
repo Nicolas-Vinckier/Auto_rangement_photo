@@ -67,6 +67,14 @@ def copier_coller_media(source, destination):
                     shutil.move(filepath, destination_filepath)
                     print("Fichier déplacé :", destination_filepath)
 
+    # Supprimer les dossiers vides de la source
+    for root, dirs, files in os.walk(source, topdown=False):
+        for directory in dirs:
+            dir_path = os.path.join(root, directory)
+            if not os.listdir(dir_path):
+                os.rmdir(dir_path)
+                print("Dossier vide supprimé :", dir_path)
+
 # Exemple d'utilisation
 source = "Source_photo"
 destination = "Destination_photo"
